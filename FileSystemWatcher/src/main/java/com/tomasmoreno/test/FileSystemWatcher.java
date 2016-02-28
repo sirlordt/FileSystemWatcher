@@ -32,9 +32,9 @@ public class FileSystemWatcher {
     private boolean bTrace = false;
 
     @SuppressWarnings("unchecked")
-    static <T> WatchEvent<T> cast(WatchEvent<?> event) {
+    static <T> WatchEvent<T> cast( WatchEvent<?> event ) {
         
-        return (WatchEvent<T>)event;
+        return ( WatchEvent<T> ) event;
         
     }
 
@@ -45,7 +45,7 @@ public class FileSystemWatcher {
         
         WatchKey key = dir.register( watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY );
         
-        if (bTrace) {
+        if ( bTrace ) {
             
             Path prev = keys.get( key );
             
@@ -56,7 +56,7 @@ public class FileSystemWatcher {
             } 
             else {
                 
-                if ( dir.equals(prev) == false ) {
+                if ( dir.equals( prev ) == false ) {
                 
                     System.out.format( "update: %s -> %s\n", prev, dir );
                 
@@ -75,15 +75,15 @@ public class FileSystemWatcher {
      * Register the given directory, and all its sub-directories, with the
      * WatchService.
      */
-    private void registerAll(final Path start) throws IOException {
+    private void registerAll( final Path start ) throws IOException {
         
         // register directory and sub-directories
         Files.walkFileTree( start, new SimpleFileVisitor<Path>() {
             
             @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            public FileVisitResult preVisitDirectory( Path dir, BasicFileAttributes attrs ) throws IOException {
 
-                register(dir);
+                register( dir );
                 
                 return FileVisitResult.CONTINUE;
                 
@@ -104,11 +104,11 @@ public class FileSystemWatcher {
 
         if ( bRecursive ) {
             
-            System.out.format("Scanning %s ...\n", dir);
+            System.out.format( "Scanning %s ...\n", dir );
             
-            registerAll(dir);
+            registerAll( dir );
             
-            System.out.println("Done.");
+            System.out.println( "Done." );
             
         } 
         else {
@@ -131,6 +131,7 @@ public class FileSystemWatcher {
 
             // wait for key to be signalled
             WatchKey key;
+            
             try {
                 
                 key = watcher.take();
@@ -154,7 +155,7 @@ public class FileSystemWatcher {
 
             for ( WatchEvent<?> event: key.pollEvents() ) {
                 
-                @SuppressWarnings("rawtypes")
+                @SuppressWarnings( "rawtypes" )
                 WatchEvent.Kind kind = event.kind();
 
                 // TBD - provide example of how OVERFLOW event is handled
@@ -165,9 +166,9 @@ public class FileSystemWatcher {
                 }
 
                 // Context for directory entry event is the file name of entry
-                WatchEvent<Path> ev = cast(event);
+                WatchEvent<Path> ev = cast( event );
                 Path name = ev.context();
-                Path child = dir.resolve(name);
+                Path child = dir.resolve( name );
 
                 // print out event
                 System.out.format( "%s: %s\n", event.kind().name(), child );
@@ -190,6 +191,7 @@ public class FileSystemWatcher {
                         // ignore to keep sample readable
                         
                     }
+                    
                 }
                 
             }
@@ -216,7 +218,7 @@ public class FileSystemWatcher {
 
     static void usage() {
         
-        System.out.println("usage: java -jar FileSystemWatcher [-r] dir");
+        System.out.println( "usage: java -jar FileSystemWatcher [-r] dir" );
         
         System.exit(-1);
         
@@ -231,7 +233,7 @@ public class FileSystemWatcher {
         boolean bRecursive = false;
         int intDirArg = 0;
         
-        if ( args[0].equals( "-r" ) ) {
+        if ( args[ 0 ].equals( "-r" ) ) {
         
             if ( args.length < 2 )
                 usage();
