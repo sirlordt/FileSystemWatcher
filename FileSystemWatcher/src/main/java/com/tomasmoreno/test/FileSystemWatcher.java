@@ -1,6 +1,5 @@
 package com.tomasmoreno.test;
 
-
 import java.io.IOException;
 
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
@@ -65,8 +64,7 @@ public class FileSystemWatcher {
             }
             
         }
-        
-        
+
         keys.put( key, dir );
         
     }
@@ -220,7 +218,7 @@ public class FileSystemWatcher {
         
         System.out.println( "usage: java -jar FileSystemWatcher [-r] dir" );
         
-        System.exit(-1);
+        System.exit( -1 );
         
     }
 
@@ -240,7 +238,7 @@ public class FileSystemWatcher {
             
             bRecursive = true;
             
-            intDirArg++;
+            intDirArg ++;
             
         }
 
